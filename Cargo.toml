@@ -1,0 +1,11 @@
+[package]
+name = "aoc-2021"
+version = "0.1.0"
+authors = ["Miriam Zimmerman <miriam@mutexlox.com>"]
+edition = "2021"
+
+[[bin]]
+name = "day01"
+path = "src/day01.rs"
+
+[dependencies]
