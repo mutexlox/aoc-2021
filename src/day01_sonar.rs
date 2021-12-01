@@ -1,22 +1,17 @@
 use std::env;
 use std::fs;
 
-fn count_increases(input: &[i64]) -> i64 {
-    let mut increases = 0;
-    for i in 1..input.len() {
-        if input[i] > input[i - 1] {
-            increases += 1;
-        }
-    }
-    increases
+fn count_increases(input: &[i64]) -> usize {
+    input
+        .iter()
+        .enumerate()
+        .filter(|(i, item)| *i > 0 && **item > input[*i - 1])
+        .count()
 }
 
 fn count_increases_window(input: &[i64], win_size: usize) -> i64 {
     let mut increases = 0;
-    let mut window = 0;
-    for item in input.iter().take(win_size) {
-        window += item;
-    }
+    let mut window: i64 = input.iter().take(win_size).sum();
     for i in win_size..input.len() {
         let new_win = window - input[i - win_size] + input[i];
         if new_win > window {
