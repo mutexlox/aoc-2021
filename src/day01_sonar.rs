@@ -14,8 +14,8 @@ fn count_increases(input: &[i64]) -> i64 {
 fn count_increases_window(input: &[i64], win_size: usize) -> i64 {
     let mut increases = 0;
     let mut window = 0;
-    for i in 0..win_size {
-        window += input[i];
+    for item in input.iter().take(win_size) {
+        window += item;
     }
     for i in win_size..input.len() {
         let new_win = window - input[i - win_size] + input[i];
@@ -34,7 +34,7 @@ fn main() {
     let input = fs::read_to_string(&args[1])
         .expect("couldn't read file")
         .trim()
-        .split("\n")
+        .split('\n')
         .map(|s| s.parse::<i64>().unwrap())
         .collect::<Vec<_>>();
     println!("{}", count_increases(&input));
