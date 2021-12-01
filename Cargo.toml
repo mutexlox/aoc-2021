@@ -6,7 +6,7 @@ edition = "2021"
 
 [[bin]]
 name = "day01"
-path = "src/day01.rs"
+path = "src/day01_sonar.rs"
 
 [[bin]]
 name = "quine"
