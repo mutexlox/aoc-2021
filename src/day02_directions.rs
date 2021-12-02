@@ -35,7 +35,7 @@ impl FromStr for SubCommand {
     }
 }
 
-fn compute_position_after(input: &Vec<SubCommand>) -> i64 {
+fn compute_position_after(input: &[SubCommand]) -> i64 {
     let mut depth = 0;
     let mut horiz = 0;
     for command in input.iter() {
@@ -47,7 +47,7 @@ fn compute_position_after(input: &Vec<SubCommand>) -> i64 {
     depth * horiz
 }
 
-fn compute_position_after_with_aim(input: &Vec<SubCommand>) -> i64 {
+fn compute_position_after_with_aim(input: &[SubCommand]) -> i64 {
     let mut depth = 0;
     let mut horiz = 0;
     let mut aim = 0;
