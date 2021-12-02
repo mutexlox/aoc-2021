@@ -9,6 +9,10 @@ name = "day01"
 path = "src/day01_sonar.rs"
 
 [[bin]]
+name = "day02"
+path = "src/day02_directions.rs"
+
+[[bin]]
 name = "quine"
 path = "src/quine.rs"
 
