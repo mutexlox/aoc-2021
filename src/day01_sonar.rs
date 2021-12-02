@@ -5,7 +5,7 @@ fn count_increases(input: &[i64]) -> usize {
     input
         .iter()
         .enumerate()
-        .filter(|(i, item)| *i > 0 && **item > input[*i - 1])
+        .filter(|(i, &item)| *i > 0 && item > input[*i - 1])
         .count()
 }
 
