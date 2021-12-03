@@ -13,6 +13,10 @@ name = "day02"
 path = "src/day02_directions.rs"
 
 [[bin]]
+name = "day03"
+path = "src/day03_power.rs"
+
+[[bin]]
 name = "quine"
 path = "src/quine.rs"
 
