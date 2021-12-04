@@ -45,32 +45,7 @@ fn sum_unmarked(marked: &HashSet<(usize, usize)>, board: &[Vec<i64>]) -> i64 {
     sum
 }
 
-fn winning_score(numbers: &[i64], boards: &[Vec<Vec<i64>>]) -> i64 {
-    let mut marked = Vec::new();
-    for _ in 0..boards.len() {
-        marked.push(HashSet::new());
-    }
-
-    for number in numbers.iter() {
-        for (b_idx, board) in boards.iter().enumerate() {
-            for (i, row) in board.iter().enumerate() {
-                for (j, val) in row.iter().enumerate() {
-                    if val == number {
-                        marked[b_idx].insert((i, j));
-                        // Check if this board won
-                        if board_won(&marked[b_idx]) {
-                            return *number * sum_unmarked(&marked[b_idx], board);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    -1
-}
-
-fn winning_score_last(numbers: &[i64], boards: &[Vec<Vec<i64>>]) -> i64 {
+fn winning_score(numbers: &[i64], boards: &[Vec<Vec<i64>>], first: bool) -> i64 {
     let mut marked = Vec::new();
     for _ in 0..boards.len() {
         marked.push(HashSet::new());
@@ -86,7 +61,7 @@ fn winning_score_last(numbers: &[i64], boards: &[Vec<Vec<i64>>]) -> i64 {
                         // Check if this board won
                         if board_won(&marked[b_idx]) {
                             winners.insert(b_idx);
-                            if winners.len() == boards.len() {
+                            if first || winners.len() == boards.len() {
                                 return *number * sum_unmarked(&marked[b_idx], board);
                             }
                         }
@@ -124,6 +99,6 @@ fn main() {
         );
     }
     boards.push(cur_board);
-    println!("{}", winning_score(&numbers, &boards));
-    println!("{}", winning_score_last(&numbers, &boards));
+    println!("{}", winning_score(&numbers, &boards, true));
+    println!("{}", winning_score(&numbers, &boards, false));
 }
