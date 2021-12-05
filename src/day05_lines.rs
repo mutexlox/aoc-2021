@@ -1,15 +1,7 @@
-use std::cmp::Ordering;
+use std::cmp::max;
 use std::collections::HashMap;
 use std::env;
 use std::fs;
-
-fn get_delta(cur: i64, target: i64) -> i64 {
-    match cur.cmp(&target) {
-        Ordering::Greater => -1,
-        Ordering::Less => 1,
-        Ordering::Equal => 0,
-    }
-}
 
 fn count_overlaps(input: &[Vec<(i64, i64)>], diag: bool) -> usize {
     let mut counts = HashMap::new();
@@ -19,13 +11,12 @@ fn count_overlaps(input: &[Vec<(i64, i64)>], diag: bool) -> usize {
         }
         let mut i = line[0].0;
         let mut j = line[0].1;
-        while !(i == line[1].0 && j == line[1].1) {
+        let length = max((line[1].0 - i).abs(), (line[1].1 - j).abs());
+        for _ in 0..length + 1 {
             *counts.entry((i, j)).or_insert(0) += 1;
-            i += get_delta(i, line[1].0);
-            j += get_delta(j, line[1].1);
+            i += (line[1].0 - i).signum();
+            j += (line[1].1 - j).signum();
         }
-        // last one, since end is inclusive
-        *counts.entry((i, j)).or_insert(0) += 1;
     }
 
     counts.values().filter(|&count| *count > 1).count()
