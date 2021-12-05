@@ -1,50 +1,33 @@
-use std::cmp::{max, min};
+use std::cmp::Ordering;
 use std::collections::HashMap;
 use std::env;
 use std::fs;
 
 fn count_overlaps(input: &[Vec<(i64, i64)>], diag: bool) -> usize {
     let mut counts = HashMap::new();
-    // For non-diagonal lines...
-    for line in input
-        .iter()
-        .filter(|l| l[0].0 == l[1].0 || l[0].1 == l[1].1)
-    {
-        let low_i = min(line[0].0, line[1].0);
-        let high_i = max(line[0].0, line[1].0);
-        let low_j = min(line[0].1, line[1].1);
-        let high_j = max(line[0].1, line[1].1);
-        for i in low_i..high_i + 1 {
-            for j in low_j..high_j + 1 {
-                let counter = counts.entry((i, j)).or_insert(0);
-                *counter += 1;
-            }
+    for line in input.iter() {
+        if !diag && (line[0].0 != line[1].0 && line[0].1 != line[1].1) {
+            continue;
         }
-    }
-    if diag {
-        for line in input
-            .iter()
-            .filter(|l| l[0].0 != l[1].0 && l[0].1 != l[1].1)
-        {
-            let mut i = line[0].0;
-            let mut j = line[0].1;
-            while i != line[1].0 && j != line[1].1 {
-                let counter = counts.entry((i, j)).or_insert(0);
-                *counter += 1;
-                if i > line[1].0 {
-                    i -= 1;
-                } else {
-                    i += 1;
-                }
-                if j > line[1].1 {
-                    j -= 1;
-                } else {
-                    j += 1;
-                }
-            }
+        let mut i = line[0].0;
+        let mut j = line[0].1;
+        while !(i == line[1].0 && j == line[1].1) {
             let counter = counts.entry((i, j)).or_insert(0);
             *counter += 1;
+            i += match i.cmp(&line[1].0) {
+                Ordering::Greater => -1,
+                Ordering::Less => 1,
+                Ordering::Equal => 0,
+            };
+            j += match j.cmp(&line[1].1) {
+                Ordering::Greater => -1,
+                Ordering::Less => 1,
+                Ordering::Equal => 0,
+            };
         }
+        // last one, since end is inclusive
+        let counter = counts.entry((i, j)).or_insert(0);
+        *counter += 1;
     }
 
     counts.values().filter(|&count| *count > 1).count()
