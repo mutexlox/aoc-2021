@@ -3,6 +3,14 @@ use std::collections::HashMap;
 use std::env;
 use std::fs;
 
+fn get_delta(cur: i64, target: i64) -> i64 {
+    match cur.cmp(&target) {
+        Ordering::Greater => -1,
+        Ordering::Less => 1,
+        Ordering::Equal => 0,
+    }
+}
+
 fn count_overlaps(input: &[Vec<(i64, i64)>], diag: bool) -> usize {
     let mut counts = HashMap::new();
     for line in input.iter() {
@@ -13,16 +21,8 @@ fn count_overlaps(input: &[Vec<(i64, i64)>], diag: bool) -> usize {
         let mut j = line[0].1;
         while !(i == line[1].0 && j == line[1].1) {
             *counts.entry((i, j)).or_insert(0) += 1;
-            i += match i.cmp(&line[1].0) {
-                Ordering::Greater => -1,
-                Ordering::Less => 1,
-                Ordering::Equal => 0,
-            };
-            j += match j.cmp(&line[1].1) {
-                Ordering::Greater => -1,
-                Ordering::Less => 1,
-                Ordering::Equal => 0,
-            };
+            i += get_delta(i, line[1].0);
+            j += get_delta(j, line[1].1);
         }
         // last one, since end is inclusive
         *counts.entry((i, j)).or_insert(0) += 1;
