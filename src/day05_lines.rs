@@ -9,13 +9,13 @@ fn count_overlaps(input: &[Vec<(i64, i64)>], diag: bool) -> usize {
         if !diag && (line[0].0 != line[1].0 && line[0].1 != line[1].1) {
             continue;
         }
-        let mut i = line[0].0;
-        let mut j = line[0].1;
-        let length = max((line[1].0 - i).abs(), (line[1].1 - j).abs());
-        for _ in 0..length + 1 {
-            *counts.entry((i, j)).or_insert(0) += 1;
-            i += (line[1].0 - i).signum();
-            j += (line[1].1 - j).signum();
+        let length = max((line[1].0 - line[0].0).abs(), (line[1].1 - line[0].1).abs());
+        let x_delta = (line[1].0 - line[0].0).signum();
+        let y_delta = (line[1].1 - line[0].1).signum();
+        for i in 0..length + 1 {
+            *counts
+                .entry((line[0].0 + i * x_delta, line[0].1 + i * y_delta))
+                .or_insert(0) += 1;
         }
     }
 
