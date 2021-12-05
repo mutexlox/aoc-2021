@@ -12,8 +12,7 @@ fn count_overlaps(input: &[Vec<(i64, i64)>], diag: bool) -> usize {
         let mut i = line[0].0;
         let mut j = line[0].1;
         while !(i == line[1].0 && j == line[1].1) {
-            let counter = counts.entry((i, j)).or_insert(0);
-            *counter += 1;
+            *counts.entry((i, j)).or_insert(0) += 1;
             i += match i.cmp(&line[1].0) {
                 Ordering::Greater => -1,
                 Ordering::Less => 1,
@@ -26,8 +25,7 @@ fn count_overlaps(input: &[Vec<(i64, i64)>], diag: bool) -> usize {
             };
         }
         // last one, since end is inclusive
-        let counter = counts.entry((i, j)).or_insert(0);
-        *counter += 1;
+        *counts.entry((i, j)).or_insert(0) += 1;
     }
 
     counts.values().filter(|&count| *count > 1).count()
