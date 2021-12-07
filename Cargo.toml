@@ -29,6 +29,10 @@ name = "day06"
 path = "src/day06_fishies.rs"
 
 [[bin]]
+name = "day07"
+path = "src/day07_sub_fuel.rs"
+
+[[bin]]
 name = "quine"
 path = "src/quine.rs"
 
