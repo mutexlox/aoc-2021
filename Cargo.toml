@@ -37,6 +37,10 @@ name = "day08"
 path = "src/day08_segment_display.rs"
 
 [[bin]]
+name = "day09"
+path = "src/day09_basins.rs"
+
+[[bin]]
 name = "quine"
 path = "src/quine.rs"
 
