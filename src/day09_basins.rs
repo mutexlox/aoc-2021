@@ -36,9 +36,6 @@ fn bfs(i: usize, j: usize, input: &[Vec<u32>], visited: &mut HashSet<(usize, usi
             continue;
         }
         visited.insert((i, j));
-        if i == 100 {
-            println!("{} {}", i, j);
-        }
         if input[i][j] == 9 {
             continue;
         }
@@ -47,9 +44,6 @@ fn bfs(i: usize, j: usize, input: &[Vec<u32>], visited: &mut HashSet<(usize, usi
             queue.push_back((i - 1, j));
         }
         if i < input.len() - 1 {
-            if i == 99 {
-                println!("!!");
-            }
             queue.push_back((i + 1, j));
         }
         if j > 0 {
