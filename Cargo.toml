@@ -41,6 +41,10 @@ name = "day09"
 path = "src/day09_basins.rs"
 
 [[bin]]
+name = "day10"
+path = "src/day10_delims.rs"
+
+[[bin]]
 name = "quine"
 path = "src/quine.rs"
 
