@@ -32,14 +32,14 @@ fn check_corrupted_line(line: &str) -> Option<u64> {
             }
             '}' => {
                 squiggle_count -= 1;
-                if *most_recent_opens.last().unwrap() != '{' ||  squiggle_count < 0 {
+                if *most_recent_opens.last().unwrap() != '{' || squiggle_count < 0 {
                     return Some(1197);
                 }
                 most_recent_opens.pop();
             }
             '>' => {
                 angle_count -= 1;
-                if *most_recent_opens.last().unwrap() != '<' ||  angle_count < 0 {
+                if *most_recent_opens.last().unwrap() != '<' || angle_count < 0 {
                     return Some(25137);
                 }
                 most_recent_opens.pop();
@@ -72,14 +72,12 @@ fn check_incomplete_line(line: &str) -> Option<u64> {
     if most_recent_opens.is_empty() {
         return None;
     }
-    let to_fix = most_recent_opens.iter().rev().map(|c| {
-        match c {
-            '(' => ')',
-            '[' => ']',
-            '{' => '}',
-            '<' => '>',
-            _ => panic!("invalid char {}", c)
-        }
+    let to_fix = most_recent_opens.iter().rev().map(|c| match c {
+        '(' => ')',
+        '[' => ']',
+        '{' => '}',
+        '<' => '>',
+        _ => panic!("invalid char {}", c),
     });
     let mut score = 0;
     for c in to_fix {
@@ -89,7 +87,7 @@ fn check_incomplete_line(line: &str) -> Option<u64> {
             ']' => 2,
             '}' => 3,
             '>' => 4,
-            _ => panic!("invalid char {}", c)
+            _ => panic!("invalid char {}", c),
         }
     }
     Some(score)
@@ -115,10 +113,7 @@ fn main() {
     assert_eq!(args.len(), 2);
 
     let input_str = fs::read_to_string(&args[1]).expect("couldn't read file");
-    let input = input_str
-        .trim()
-        .split('\n')
-        .collect::<Vec<_>>();
+    let input = input_str.trim().split('\n').collect::<Vec<_>>();
     println!("{}", count_wrong_character(&input));
     println!("{}", score_incompletes(&input));
 }
