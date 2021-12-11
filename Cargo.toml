@@ -45,6 +45,10 @@ name = "day10"
 path = "src/day10_delims.rs"
 
 [[bin]]
+name = "day11"
+path = "src/day11_oct_flash.rs"
+
+[[bin]]
 name = "quine"
 path = "src/quine.rs"
 
