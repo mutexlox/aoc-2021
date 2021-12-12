@@ -49,6 +49,10 @@ name = "day11"
 path = "src/day11_oct_flash.rs"
 
 [[bin]]
+name = "day12"
+path = "src/day12_cave_search.rs"
+
+[[bin]]
 name = "quine"
 path = "src/quine.rs"
 
