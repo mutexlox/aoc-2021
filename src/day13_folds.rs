@@ -79,7 +79,7 @@ fn apply_folds_and_print(points: &HashSet<(i64, i64)>, folds: &[Fold]) {
             if scratch.contains(&(x, y)) {
                 print!("#");
             } else {
-                print!(".");
+                print!(" ");
             }
         }
         println!();
