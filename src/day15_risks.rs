@@ -33,7 +33,7 @@ impl PartialOrd for State {
     }
 }
 
-fn lowest_risk_path_risk(input: &Vec<Vec<u32>>) -> u32 {
+fn lowest_risk_path_risk(input: &[Vec<u32>]) -> u32 {
     let mut dists: Vec<Vec<_>> = (0..input.len())
         .map(|_| (0..input[0].len()).map(|_| u32::MAX).collect())
         .collect();
@@ -85,10 +85,10 @@ fn lowest_risk_path_risk(input: &Vec<Vec<u32>>) -> u32 {
             }
         }
     }
-    return 0;
+    0
 }
 
-fn enlarge(input: &Vec<Vec<u32>>) -> Vec<Vec<u32>> {
+fn enlarge(input: &[Vec<u32>]) -> Vec<Vec<u32>> {
     let mut new: Vec<Vec<u32>> = (0..input.len() * 5)
         .map(|_| (0..input[0].len() * 5).map(|_| 0).collect())
         .collect();
