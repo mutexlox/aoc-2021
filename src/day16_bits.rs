@@ -16,9 +16,7 @@ fn bits_to_num(bits: &[bool]) -> usize {
     let mut out = 0;
     for b in bits.iter() {
         out *= 2;
-        if *b {
-            out += 1;
-        }
+        out += *b as usize;
     }
     out
 }
@@ -118,27 +116,15 @@ fn evaluate(packet: &Packet) -> usize {
             3 => packets.iter().map(evaluate).max().unwrap(),
             5 => {
                 assert_eq!(packets.len(), 2);
-                if evaluate(&packets[0]) > evaluate(&packets[1]) {
-                    1
-                } else {
-                    0
-                }
+                (evaluate(&packets[0]) > evaluate(&packets[1])) as usize
             }
             6 => {
                 assert_eq!(packets.len(), 2);
-                if evaluate(&packets[0]) < evaluate(&packets[1]) {
-                    1
-                } else {
-                    0
-                }
+                (evaluate(&packets[0]) < evaluate(&packets[1])) as usize
             }
             7 => {
                 assert_eq!(packets.len(), 2);
-                if evaluate(&packets[0]) == evaluate(&packets[1]) {
-                    1
-                } else {
-                    0
-                }
+                (evaluate(&packets[0]) == evaluate(&packets[1])) as usize
             }
             _ => panic!("invalid packet type {}", packet.packet_type),
         },
