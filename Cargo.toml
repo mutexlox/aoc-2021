@@ -69,6 +69,10 @@ name = "day16"
 path = "src/day16_bits.rs"
 
 [[bin]]
+name = "day17"
+path = "src/day17_probe.rs"
+
+[[bin]]
 name = "quine"
 path = "src/quine.rs"
 
