@@ -73,6 +73,10 @@ name = "day17"
 path = "src/day17_probe.rs"
 
 [[bin]]
+name = "day18"
+path = "src/day18_snailfish.rs"
+
+[[bin]]
 name = "quine"
 path = "src/quine.rs"
 
